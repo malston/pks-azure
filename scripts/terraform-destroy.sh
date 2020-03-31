@@ -12,13 +12,12 @@ if [ -z "$ENVIRONMENT_NAME" ]; then
     exit 1
 fi
 
-mkdir -p "${__DIR}/../pcf/state/$ENVIRONMENT_NAME"
+state_dir="${__DIR}/../pcf/state/$ENVIRONMENT_NAME"
+vars_dir="${__DIR}/../pcf/vars/$ENVIRONMENT_NAME"
 
-export state_file=${__DIR}/../pcf/state/"$ENVIRONMENT_NAME"/terraform.tfstate
-
-terraform_dir="${__DIR}/../pcf/terraform"
+terraform_dir="${__DIR}/../pcf/terraform/pks"
 
 pushd "${terraform_dir}" > /dev/null
-  terraform destroy -var-file="../vars/${ENVIRONMENT_NAME}/terraform.tfvars" \
-    -state="${state_file}"
+  terraform destroy -var-file="${vars_dir}/terraform.tfvars" \
+    -state="${state_dir}/terraform.tfstate"
 popd > /dev/null
