@@ -1,0 +1,27 @@
+# An arbitrary unique name for namespacing resources
+env_name = "pcf"
+
+# Azure account subscription id
+subscription_id = "YOUR-SUBSCRIPTION-ID"
+
+# Azure account tenant id
+tenant_id = "YOUR-TENANT-ID"
+
+# Azure automation account client id
+client_id = "YOUR-CLIENT-ID"
+
+# Azure automation account client secret
+client_secret = "YOUR-CLIENT-SECRET"
+
+# Azure location to stand up environment in
+location = "West US"
+
+# Domain to add environment subdomain to
+dns_suffix = "domain.com"
+
+# (optional) if left blank, will default to the pattern `env_name.dns_suffix`
+dns_subdomain = ""
+
+# URL for an OpsMan image hosted on Azure (if not provided you get no Ops Manager)
+# Comment out if using Platform Automation
+# ops_manager_image_uri = "https://opsmanagerwestus.blob.core.windows.net/images/ops-manager-2.8.5-build.234.vhd"
