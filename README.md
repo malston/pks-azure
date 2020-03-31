@@ -36,8 +36,8 @@ source .envrc
 
 - Run `./scripts/install-cli-tools.sh` to install required CLI tools
 - Follow [these instructions](https://docs.pivotal.io/platform/ops-manager/2-8/azure/prepare-azure-terraform.html#install) to create and configure the Service Principal account that is needed to run the terraform templates. To save time, you can run `./scripts/create-service-account.sh`
-- Copy `./pks/vars/$ENVIRONMENT_NAME/terraform.tfvars.example` to `./pks/vars/$ENVIRONMENT_NAME/terraform.tfvars` and modify with your configuration choices and credentials.
-- Run `./scripts/terraform-pks-apply.sh` - this will create the
+- Copy `./pcf/vars/$ENVIRONMENT_NAME/terraform.tfvars.example` to `./pcf/vars/$ENVIRONMENT_NAME/terraform.tfvars` and modify with your configuration choices and credentials.
+- Run `./scripts/terraform-apply.sh` - this will create the
   infrastructure required in Azure for a pks.
 
 ## Platform Automation
