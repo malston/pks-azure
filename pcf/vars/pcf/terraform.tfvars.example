@@ -23,5 +23,5 @@ dns_suffix = "domain.com"
 dns_subdomain = ""
 
 # URL for an OpsMan image hosted on Azure (if not provided you get no Ops Manager)
-# Comment out if using Platform Automation
+# Set to empty if using Platform Automation
 # ops_manager_image_uri = "https://opsmanagerwestus.blob.core.windows.net/images/ops-manager-2.8.5-build.234.vhd"
