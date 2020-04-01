@@ -2,10 +2,10 @@ product-name: pivotal-container-service
 network-properties:
   network:
     name: ((network_name))
-  other_availability_zones:
-  - name: ((singleton_availability_zone))
   service_network:
     name: ((service_network_name))
+  other_availability_zones:
+  - name: ((singleton_availability_zone))
   singleton_availability_zone:
     name: ((singleton_availability_zone))
 product-properties:
@@ -109,15 +109,15 @@ resource-config:
   pivotal-container-service:
     instance_type:
       id: ((pivotal-container-service_instance_type))
-    max_in_flight: ((pivotal-container-service_max_in_flight))
     persistent_disk:
       size_mb: ((pivotal-container-service_persistent_disk_size))
+    max_in_flight: ((pivotal-container-service_max_in_flight))
   pks-db:
     instance_type:
       id: ((pks-db_instance_type))
-    max_in_flight: ((pks-db_max_in_flight))
     persistent_disk:
       size_mb: ((pks-db_persistent_disk_size))
+    max_in_flight: ((pks-db_max_in_flight))
 errand-config:
   clone-db:
     post-deploy-state: ((clone-db_post_deploy_state))
