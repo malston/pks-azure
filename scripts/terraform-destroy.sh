@@ -21,3 +21,5 @@ pushd "${terraform_dir}" > /dev/null
   terraform destroy -var-file="${vars_dir}/terraform.tfvars" \
     -state="${state_dir}/terraform.tfstate"
 popd > /dev/null
+
+rm -rf "${state_dir}"
