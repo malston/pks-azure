@@ -12,11 +12,11 @@ function install_terraform {
   sudo mv terraform /usr/local/bin/terraform
   rm $file
   type terraform
-  terraform --version 
+  terraform --version
 }
 
 function install_pivnet_cli {
-  version="${PIVNET_VERSION:-1.0.1}"
+  version="${PIVNET_VERSION:-1.0.2}"
   os="${OS:-linux}"
   arch="${ARCH:-amd64}"
   file="pivnet"
@@ -132,6 +132,22 @@ function install_minio_client {
   mc --version
 }
 
+function install_kpack_logs {
+  version="${KPACK_VERSION:-v0.0.8}"
+  os="${OS:-linux}"
+  if [[ $os == darwin ]]; then
+    os="macos"
+  fi
+  file="logs.tgz"
+  trap "{ rm -f $file ; exit 255; }" EXIT
+  wget -O $file https://github.com/pivotal/kpack/releases/download/${version}/logs-${version}-${os}.tgz
+  tar -xvf $file
+  rm $file
+  chmod +x logs
+  sudo mv logs /usr/local/bin/logs
+  type logs
+}
+
 set -eou pipefail
 
 echo "Enter your Operating System (linux, darwin, windows): "
@@ -156,3 +172,4 @@ install_pks_cli
 install_helm_cli
 install_bosh_cli
 install_minio_client
+install_kpack_logs
