@@ -6,12 +6,16 @@ This repo contains scripts and terraform configurations to deploy PCF Ops Manage
 
 ```sh
 cat > .envrc <<EOF
+export ENVIRONMENT_NAME=pcf
 export AZURE_CLIENT_ID=<application client id>
 export AZURE_CLIENT_SECRET=<application client secret>
 export AZURE_REGION=<azure region>
 export AZURE_TENANT_ID=<azure tenant it>
 export AZURE_SUBSCRIPTION_ID=<azure subscription id>
-export ENVIRONMENT_NAME=pcf
+export OPSMAN_USERNAME=admin
+export OPSMAN_PASSWORD=admin
+export OPSMAN_DECRYPTION_PASSPHRASE=admin
+export OPSMAN_SKIP_SSL_VALIDATION=false
 EOF
 ```
 
@@ -47,7 +51,7 @@ source .envrc
 
 ### Terraforming PCF on Azure
 
-- Copy `./control-plane/vars/$ENVIRONMENT_NAME/terraform.tfvars.example` to `./control-plane/vars/$ENVIRONMENT_NAME/terraform.tfvars` and modify with your configuration choices and credentials.
+- Copy `./pcf/vars/$ENVIRONMENT_NAME/terraform.tfvars.example` to `./pcf/vars/$ENVIRONMENT_NAME/terraform.tfvars` and modify with your configuration choices and credentials.
 - Run `./scripts/terraform-apply.sh` - this will create the infrastructure required in Azure for PCF.
 
 ### Configure Operations Manager and Deploy Director
