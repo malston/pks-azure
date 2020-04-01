@@ -1,0 +1,15 @@
+{
+  "Name": "PKS worker",
+  "IsCustom": true,
+  "Description": "Permissions for PKS worker",
+  "Actions": [
+    "Microsoft.Compute/virtualMachines/read",
+    "Microsoft.Storage/storageAccounts/*"
+  ],
+  "NotActions": [],
+  "DataActions": [],
+  "NotDataActions": [],
+  "AssignableScopes": [
+    "/subscriptions/((subscription_id))/resourceGroups/((resource_group_name))"
+  ]
+}
