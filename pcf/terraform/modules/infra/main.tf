@@ -265,6 +265,10 @@ output "infrastructure_subnet_gateway" {
   value = "${cidrhost(azurerm_subnet.infrastructure_subnet.address_prefix, 1)}"
 }
 
+output "infrastructure_subnet_range" {
+  value = "${cidrhost(azurerm_subnet.infrastructure_subnet.address_prefix, 10)}"
+}
+
 output "security_group_id" {
   value = "${azurerm_network_security_group.ops_manager_security_group.id}"
 }

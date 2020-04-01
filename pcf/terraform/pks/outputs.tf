@@ -60,6 +60,10 @@ output "infrastructure_subnet_gateway" {
   value = "${module.infra.infrastructure_subnet_gateway}"
 }
 
+output "infrastructure_subnet_range" {
+  value = "${module.infra.infrastructure_subnet_range}"
+}
+
 output "pcf_resource_group_name" {
   value = "${module.infra.resource_group_name}"
 }
@@ -124,6 +128,10 @@ output "pks_subnet_gateway" {
   value = "${module.pks.pks_subnet_gateway}"
 }
 
+output "pks_subnet_range" {
+  value = "${module.pks.pks_subnet_range}"
+}
+
 output "services_subnet_name" {
   value = "${module.pks.services_subnet_name}"
 }
@@ -134,6 +142,10 @@ output "services_subnet_cidr" {
 
 output "services_subnet_gateway" {
   value = "${module.pks.services_subnet_gateway}"
+}
+
+output "services_subnet_range" {
+  value = "${module.pks.services_subnet_range}"
 }
 
 # Deprecated properties

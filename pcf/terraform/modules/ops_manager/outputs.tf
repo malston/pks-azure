@@ -1,4 +1,7 @@
 # ==================== Outputs
+output "dns_servers" {
+  value = "168.63.129.16,8.8.8.8"
+}
 
 output "dns_name" {
   value = "${azurerm_dns_a_record.ops_manager_dns.name}.${azurerm_dns_a_record.ops_manager_dns.zone_name}"

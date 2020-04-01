@@ -20,6 +20,10 @@ output "pks_subnet_gateway" {
   value = "${cidrhost(azurerm_subnet.pks.address_prefix, 1)}"
 }
 
+output "pks_subnet_range" {
+  value = "${cidrhost(azurerm_subnet.pks.address_prefix, 10)}"
+}
+
 output "services_subnet_name" {
   value = "${azurerm_subnet.pks_services.name}"
 }
@@ -30,6 +34,10 @@ output "services_subnet_cidr" {
 
 output "services_subnet_gateway" {
   value = "${cidrhost(azurerm_subnet.pks_services.address_prefix, 1)}"
+}
+
+output "services_subnet_range" {
+  value = "${cidrhost(azurerm_subnet.pks_services.address_prefix, 10)}"
 }
 
 # Deprecated
