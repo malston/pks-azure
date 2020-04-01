@@ -69,11 +69,10 @@ properties-configuration:
     trusted_certificates: ''
     generate_vm_passwords: true
 vmextensions-configuration:
-  - name: pks-api-lb-security-groups
-    cloud_properties:
-      security_group: ((pks_api_app_sec_group))
-      application_security_groups: ["((pks_master_app_sec_group))"]
-vmextensions-configuration:
+# - name: pks-api-lb-security-groups
+#   cloud_properties:
+#     security_group: ((pks_api_app_sec_group))
+#     application_security_groups: ["((pks_master_app_sec_group))"]
 - name: increased-disk
   cloud_properties:
     ephemeral_disk:

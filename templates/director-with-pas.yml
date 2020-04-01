@@ -73,14 +73,10 @@ properties-configuration:
     trusted_certificates: ''
     generate_vm_passwords: true
 vmextensions-configuration:
-  - name: pks-api-lb-security-groups
-    cloud_properties:
-      security_group: ((pks_api_network_security_group_name))
-      application_security_groups: ["((pks_api_application_security_group_name))"]
-vmextensions-configuration:
-- name: concourse-lb
+- name: pks-api-lb-security-groups
   cloud_properties:
-    load_balancer: ((environment_name))-concourse-lb
+    security_group: ((pks_api_network_security_group_name))
+    application_security_groups: ["((pks_api_application_security_group_name))"]
 - name: increased-disk
   cloud_properties:
     ephemeral_disk:

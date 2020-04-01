@@ -43,6 +43,7 @@ fi
 
 export STATE_FILE=${__DIR}/../pcf/state/"$ENVIRONMENT_NAME"/terraform.tfstate
 
+export director_iaas_configuration_environment_azurecloud="AzureCloud"
 director_bosh_root_storage_account="$(terraform output -state="${STATE_FILE}" bosh_root_storage_account)"
 export director_bosh_root_storage_account
 director_client_id="$(terraform output -state="${STATE_FILE}" client_id)"
@@ -67,7 +68,7 @@ director_infrastructure_subnet_name="$(terraform output -state="${STATE_FILE}" i
 export director_infrastructure_subnet_name
 director_infrastructure_subnet_cidr="$(terraform output -state="${STATE_FILE}" infrastructure_subnet_cidr)"
 export director_infrastructure_subnet_cidr
-director_infrastructure_subnet_range="$(terraform output -state="${STATE_FILE}" infrastructure_subnet_gateway)"
+director_infrastructure_subnet_gateway="$(terraform output -state="${STATE_FILE}" infrastructure_subnet_gateway)"
 export director_infrastructure_subnet_gateway
 director_infrastructure_subnet_range="$(terraform output -state="${STATE_FILE}" infrastructure_subnet_range)"
 export director_infrastructure_subnet_range
@@ -75,7 +76,7 @@ director_pks_subnet_name="$(terraform output -state="${STATE_FILE}" pks_subnet_n
 export director_pks_subnet_name
 director_pks_subnet_cidr="$(terraform output -state="${STATE_FILE}" pks_subnet_cidr)"
 export director_pks_subnet_cidr
-director_pks_subnet_range="$(terraform output -state="${STATE_FILE}" pks_subnet_gateway)"
+director_pks_subnet_gateway="$(terraform output -state="${STATE_FILE}" pks_subnet_gateway)"
 export director_pks_subnet_gateway
 director_pks_subnet_range="$(terraform output -state="${STATE_FILE}" pks_subnet_range)"
 export director_pks_subnet_range
@@ -83,17 +84,14 @@ director_services_subnet_name="$(terraform output -state="${STATE_FILE}" service
 export director_services_subnet_name
 director_services_subnet_cidr="$(terraform output -state="${STATE_FILE}" services_subnet_cidr)"
 export director_services_subnet_cidr
-director_services_subnet_range="$(terraform output -state="${STATE_FILE}" services_subnet_gateway)"
+director_services_subnet_gateway="$(terraform output -state="${STATE_FILE}" services_subnet_gateway)"
 export director_services_subnet_gateway
 director_services_subnet_range="$(terraform output -state="${STATE_FILE}" services_subnet_range)"
 export director_services_subnet_range
 director_env_dns_zone_name_servers="$(terraform output -state="${STATE_FILE}" -json env_dns_zone_name_servers | jq -r .[] |tr '\n' ',' | sed -e 's/.,/, /g' -e 's/, $//')"
 export director_env_dns_zone_name_servers
-director_dns_servers="$(terraform output -state="${STATE_FILE}" -json dns_servers)"
-export director_dns_servers
-export director_iaas_configuration_environment_azurecloud="AzureCloud"
-director_pks_api_app_sec_group="$(terraform output -state="${STATE_FILE}" pks-api-app-sec-group))"
-export director_pks_api_app_sec_group
+# director_pks_api_app_sec_group="$(terraform output -state="${STATE_FILE}" pks-api-app-sec-group)"
+# export director_pks_api_app_sec_group
 director_pks_master_app_sec_group="$(terraform output -state="${STATE_FILE}" pks-master-app-sec-group)"
 export director_pks_master_app_sec_group
 
@@ -102,16 +100,19 @@ export director_pks_master_app_sec_group
   source "${__DIR}/set-om-creds.sh" ||  \
   (echo "set-om-creds.sh not found" && exit 1)
 
-echo "Configuring Ops Manager Authentication"
+# Validate template
+om interpolate --config "${__DIR}/../templates/director.yml" --vars-env=director
+
+# Configure Ops Manager Authentication
 om -t "$OM_TARGET" --skip-ssl-validation \
   configure-authentication \
     --decryption-passphrase "$OM_DECRYPTION_PASSPHRASE" \
     --username "$OM_USERNAME" \
     --password "$OM_PASSWORD"
 
-echo "Configuring Ops Manager Director"
+# Configure Ops Manager Director
 om -t "$OM_TARGET" --skip-ssl-validation \
   configure-director --config "${__DIR}/../templates/director.yml" --vars-env=director
 
-echo "Deploying Ops Manager Director"
-om -t "$OM_TARGET" apply-changes --skip-ssl-validation
+# Deploy Ops Manager Director
+om -t "$OM_TARGET" --skip-ssl-validation apply-changes
