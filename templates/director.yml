@@ -1,0 +1,80 @@
+---
+network-assignment:
+  network:
+    name: infrastructure
+  singleton_availability_zone:
+    name: 'zone-1'
+  other_availability_zones:
+    name: 'zone-2'
+networks-configuration:
+  icmp_checks_enabled: false
+  networks:
+  - name: infrastructure
+    service_network: false
+    subnets:
+    - iaas_identifier: ((network_name))/((infrastructure_subnet_name))
+      cidr: ((infrastructure_subnet_cidr))
+      reserved_ip_ranges: ((infrastructure_subnet_gateway))-((infrastructure_subnet_range))
+      dns: 168.63.129.16
+      gateway: ((infrastructure_subnet_gateway))
+  - name: pks
+    service_network: false
+    subnets:
+    - iaas_identifier: ((network_name))/((pks_subnet_name))
+      cidr: ((pks_subnet_cidr))
+      reserved_ip_ranges: ((pks_subnet_gateway))-((pks_subnet_range))
+      dns: 168.63.129.16
+      gateway: ((pks_subnet_gateway))
+  - name: services-1
+    service_network: false
+    subnets:
+    - iaas_identifier: ((network_name))/((services_subnet_name))
+      cidr: ((services_subnet_cidr))
+      reserved_ip_ranges: ((services_subnet_gateway))-((services_subnet_range))
+      dns: 168.63.129.16
+      gateway: ((services_subnet_gateway))
+properties-configuration:
+  iaas_configuration:
+    subscription_id: ((subscription_id))
+    tenant_id: ((tenant_id))
+    client_id: ((client_id))
+    client_secret: ((client_secret))
+    resource_group_name: ((resource_group_name))
+    bosh_storage_account_name: ((bosh_root_storage_account))
+    default_security_group: ((bosh_deployed_vms_security_group_name))
+    ssh_public_key: ((ops_manager_ssh_public_key))
+    ssh_private_key: ((ops_manager_ssh_private_key))
+    cloud_storage_type: managed_disks
+    # Premium_LRS corresponds to SSD-based storage
+    # https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview
+    storage_account_type: Premium_LRS
+    environment: ((iaas_configuration_environment_azurecloud))
+    # For Availability Mode, choose whether to use Availability Sets or Availability Zones. 
+    # You can further configure this option in the Assign AZs and Networks Page.
+    availability_mode: availability_sets
+  director_configuration:
+    ntp_servers_string: "0.pool.ntp.org, 1.pool.ntp.org"
+    metrics_ip: ''
+    resurrector_enabled: true
+    post_deploy_enabled: true
+    bosh_recreate_on_next_deploy: false
+    retry_bosh_deploys: true
+    hm_pager_duty_options:
+      enabled: false
+    hm_emailer_options:
+      enabled: false
+    blobstore_type: local
+    database_type: internal
+  security_configuration:
+    trusted_certificates: ''
+    generate_vm_passwords: true
+vmextensions-configuration:
+  - name: pks-api-lb-security-groups
+    cloud_properties:
+      security_group: ((pks_api_app_sec_group))
+      application_security_groups: ["((pks_master_app_sec_group))"]
+vmextensions-configuration:
+- name: increased-disk
+  cloud_properties:
+    ephemeral_disk:
+      size: 512000
