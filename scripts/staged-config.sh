@@ -39,8 +39,10 @@ fi
   source "${__DIR}/set-om-creds.sh" ||  \
   (echo "set-om-creds.sh not found" && exit 1)
 
+shift
+
 # Initialize parameters specified from command line
-while [[ $# -gt 1 ]]
+while [[ $# -gt 0 ]]
 do
 key="$1"
 case ${key} in
