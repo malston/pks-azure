@@ -18,6 +18,14 @@ resource "azurerm_lb" "pks-lb" {
   }
 }
 
+resource "azurerm_dns_a_record" "pks-dns" {
+  name                = "pks"
+  zone_name           = var.dns_zone_name
+  resource_group_name = var.resource_group_name
+  ttl                 = "60"
+  records             = [azurerm_public_ip.pks-lb-ip.ip_address]
+}
+
 resource "azurerm_lb_backend_address_pool" "pks-lb-backend-pool" {
   name                = "${var.env_id}-pks-backend-pool"
   resource_group_name = "${var.resource_group_name}"

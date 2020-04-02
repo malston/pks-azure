@@ -2,6 +2,10 @@ variable "env_id" {}
 
 variable "location" {}
 
+variable "dns_zone_name" {
+  type = string
+}
+
 variable "resource_group_name" {
   type = "string"
 }
