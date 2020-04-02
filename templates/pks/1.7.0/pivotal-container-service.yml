@@ -18,17 +18,17 @@ product-properties:
   .properties.cloud_provider.azure.location:
     value: West US 2
   .properties.cloud_provider.azure.primary_availability_set:
-    value: pcf-availability-set
+    value: ((pcf_resource_group_name))-availability-set
   .properties.cloud_provider.azure.resource_group_name:
-    value: pcf
+    value: ((pcf_resource_group_name))
   .properties.cloud_provider.azure.subscription_id:
     value: ((subscription_id))
   .properties.cloud_provider.azure.tenant_id:
     value: ((tenant_id))
   .properties.cloud_provider.azure.vnet_name:
-    value: pcf-virtual-network
+    value: ((network_name))
   .properties.cloud_provider.azure.vnet_resource_group_name:
-    value: pcf
+    value: ((pcf_resource_group_name))
   .properties.log_sink_resources_deploy:
     value: true
   .properties.metric_sink_resources_deploy:

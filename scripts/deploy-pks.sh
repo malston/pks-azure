@@ -26,6 +26,10 @@ pks_tenant_id="$(terraform output -state="${STATE_FILE}" tenant_id)"
 export pks_tenant_id
 pks_pks_api_dns="$(terraform output -state="${STATE_FILE}" pks_api_dns)"
 export pks_pks_api_dns
+pks_network_name="$(terraform output -state="${STATE_FILE}" network_name)"
+export pks_network_name
+pks_pcf_resource_group_name="$(terraform output -state="${STATE_FILE}" pcf_resource_group_name)"
+export pks_pcf_resource_group_name
 
 # shellcheck source=/dev/null
 [[ -f "${__DIR}/set-om-creds.sh" ]] &&  \
