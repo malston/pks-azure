@@ -19,24 +19,42 @@ fi
 
 export STATE_FILE=${__DIR}/../pcf/state/"$ENVIRONMENT_NAME"/terraform.tfstate
 
+export pks_iaas_configuration_environment_azurecloud="AzurePublicCloud"
+pks_subscription_id="$(terraform output -state="${STATE_FILE}" subscription_id)"
+export pks_subscription_id
+pks_tenant_id="$(terraform output -state="${STATE_FILE}" tenant_id)"
+export pks_tenant_id
+pks_pks_api_dns="$(terraform output -state="${STATE_FILE}" pks_api_dns)"
+export pks_pks_api_dns
+
 # shellcheck source=/dev/null
 [[ -f "${__DIR}/set-om-creds.sh" ]] &&  \
   source "${__DIR}/set-om-creds.sh" ||  \
   (echo "set-om-creds.sh not found" && exit 1)
 
-# Validate template
-# om interpolate --config "${__DIR}/../templates/pivotal_container_service.yml" --vars-env=pks
+# Configure cert
+pks_ca_cert=$(om -t "$OM_TARGET" --skip-ssl-validation certificate-authorities \
+  --format json | jq -r '.[0] | select(.active==true) | .cert_pem' )
+export pks_ca_cert
 
-# Configure Ops Manager Authentication
+om -t "$OM_TARGET" --skip-ssl-validation generate-certificate \
+  --domains "${pks_pks_api_dns}" > /tmp/om_generated_cert.json
+
+pks_pcf_tls_cert=$(jq -r .certificate /tmp/om_generated_cert.json)
+export pks_pcf_tls_cert
+pks_pcf_tls_private_key=$(jq -r .key /tmp/om_generated_cert.json)
+export pks_pcf_tls_private_key
+
+short_version=$(om interpolate --config "${__DIR}/../versions.yml" --path /pks_version | cut -d - -f 1)
+
+# Validate PKS template
+om interpolate --config "${__DIR}/../templates/pks/${short_version}/pivotal-container-service.yml" --vars-env=pks
+
+# Configure PKS
 om -t "$OM_TARGET" --skip-ssl-validation \
-  configure-authentication \
-    --decryption-passphrase "$OM_DECRYPTION_PASSPHRASE" \
-    --username "$OM_USERNAME" \
-    --password "$OM_PASSWORD"
+  configure-product \
+  --config "${__DIR}/../templates/pks/${short_version}/pivotal-container-service.yml" \
+  --vars-env=pks
 
-# Configure Ops Manager Director
-om -t "$OM_TARGET" --skip-ssl-validation \
-  configure-director --config "${__DIR}/../templates/director.yml" --vars-env=director
-
-# Deploy Ops Manager Director
+# Deploy PKS
 om -t "$OM_TARGET" --skip-ssl-validation apply-changes
