@@ -6,6 +6,10 @@ output "pks-api-app-sec-group" {
   value = "${azurerm_application_security_group.pks-api.id}"
 }
 
+output "dns_name" {
+  value = "${azurerm_dns_a_record.pks-dns.name}.${azurerm_dns_a_record.pks-dns.zone_name}"
+}
+
 # Subnets
 
 output "pks_subnet_name" {
