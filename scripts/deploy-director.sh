@@ -91,9 +91,12 @@ export director_services_subnet_range
 director_env_dns_zone_name_servers="$(terraform output -state="${STATE_FILE}" -json env_dns_zone_name_servers | jq -r .[] |tr '\n' ',' | sed -e 's/.,/, /g' -e 's/, $//')"
 export director_env_dns_zone_name_servers
 # director_pks_api_app_sec_group="$(terraform output -state="${STATE_FILE}" pks-api-app-sec-group)"
-# export director_pks_api_app_sec_group
+director_pks_api_app_sec_group="pcf-pks-api-app-sec-group"
+export director_pks_api_app_sec_group
 director_pks_master_app_sec_group="$(terraform output -state="${STATE_FILE}" pks-master-app-sec-group)"
 export director_pks_master_app_sec_group
+director_pks_lb="pcf-pks-lb"
+export director_pks_lb
 
 # shellcheck source=/dev/null
 [[ -f "${__DIR}/set-om-creds.sh" ]] &&  \
@@ -115,4 +118,4 @@ om -t "$OM_TARGET" --skip-ssl-validation \
   configure-director --config "${__DIR}/../templates/director.yml" --vars-env=director
 
 # Deploy Ops Manager Director
-om -t "$OM_TARGET" --skip-ssl-validation apply-changes
+om -t "$OM_TARGET" --skip-ssl-validation apply-changes --skip-deploy-products
