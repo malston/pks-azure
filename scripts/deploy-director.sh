@@ -90,10 +90,12 @@ director_services_subnet_range="$(terraform output -state="${STATE_FILE}" servic
 export director_services_subnet_range
 director_env_dns_zone_name_servers="$(terraform output -state="${STATE_FILE}" -json env_dns_zone_name_servers | jq -r .[] |tr '\n' ',' | sed -e 's/.,/, /g' -e 's/, $//')"
 export director_env_dns_zone_name_servers
+export director_pcf_pks_api_sg="pcf-pks-api-sg"
 # director_pks_api_app_sec_group="$(terraform output -state="${STATE_FILE}" pks-api-app-sec-group)"
 director_pks_api_app_sec_group="pcf-pks-api-app-sec-group"
 export director_pks_api_app_sec_group
-director_pks_master_app_sec_group="$(terraform output -state="${STATE_FILE}" pks-master-app-sec-group)"
+# director_pks_master_app_sec_group="$(terraform output -state="${STATE_FILE}" pks-master-app-sec-group)"
+director_pks_master_app_sec_group="pcf-pks-master-app-sec-group"
 export director_pks_master_app_sec_group
 director_pks_lb="pcf-pks-lb"
 export director_pks_lb
