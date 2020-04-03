@@ -16,7 +16,7 @@ product-properties:
   .properties.cloud_provider.azure.default_security_group:
     value: pks-master-app-sec-group
   .properties.cloud_provider.azure.location:
-    value: West US 2
+    value: ((location))
   .properties.cloud_provider.azure.primary_availability_set:
     value: ((pcf_resource_group_name))-availability-set
   .properties.cloud_provider.azure.resource_group_name:

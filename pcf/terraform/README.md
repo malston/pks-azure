@@ -87,7 +87,7 @@ client_secret   = "the-password"
 
 env_name              = "banana"
 ops_manager_image_uri = "url-to-opsman-image"
-location              = "West US"
+location              = "westus"
 dns_suffix            = "domain.com"
 
 # optional. if left blank, will default to the pattern `env_name.dns_suffix`.

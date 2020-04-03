@@ -14,7 +14,7 @@ client_id = "YOUR-CLIENT-ID"
 client_secret = "YOUR-CLIENT-SECRET"
 
 # Azure location to stand up environment in
-location = "West US"
+location = "westus"
 
 # Domain to add environment subdomain to
 dns_suffix = "domain.com"
