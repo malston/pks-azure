@@ -13,12 +13,12 @@ if [ -z "$ENVIRONMENT_NAME" ]; then
 fi
 
 state_dir="${__DIR}/../pcf/state/$ENVIRONMENT_NAME"
-pks_api_dns_name="$(terraform output -state="${state_dir}" pks_api_dns)"
+pks_api_dns_name="$(terraform output -state="${state_dir}/terraform.tfstate" pks_api_dns)"
 
 # shellcheck source=/dev/null
-[[ -f "${__DIR}/set-target-bosh.sh" ]] &&  \
-  source "${__DIR}/set-target-bosh.sh" ||  \
-  (echo "${__DIR}/set-target-bosh.sh not found" && exit 1)
+[[ -f "${__DIR}/target-bosh.sh" ]] &&  \
+  source "${__DIR}/target-bosh.sh" ||  \
+  (echo "${__DIR}/target-bosh.sh not found" && exit 1)
 
 admin_password=$(om -k credentials \
     -p pivotal-container-service \

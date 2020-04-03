@@ -36,7 +36,6 @@ private_key="$HOME"/.ssh/om_pks_azure_ssh_key
 [[ ! -f ${private_key} ]] && echo "opsman ssh private key written to '${private_key}'"
 
 terraform output -state="${STATE_FILE}" ops_manager_ssh_private_key > "$private_key"
-chmod 400 "${private_key}"
 
 export BOSH_ALL_PROXY="ssh+socks5://ubuntu@${OM_TARGET}:22?private-key=${private_key}"
 export CREDHUB_PROXY=$BOSH_ALL_PROXY
