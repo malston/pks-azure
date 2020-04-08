@@ -85,7 +85,7 @@ source .envrc
 ### PKS Login
 
 ```sh
-source ./scripts/login-pks.sh
+./scripts/login-pks.sh
 ```
 
 ### Access BOSH
