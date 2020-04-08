@@ -22,14 +22,25 @@ if [[ ! -f ${private_key} ]]; then
 	 echo "opsman ssh private key written to '${private_key}'"
 fi
 
-scp -i "${private_key}" "$HOME/.ssh/id_rsa" \
-	ubuntu@"${opsman_dns}":/home/ubuntu/.ssh
+# scp -i "${private_key}" "$HOME/.ssh/id_rsa" \
+# 	ubuntu@"${opsman_dns}":/home/ubuntu/.ssh
 
-scp -i "${private_key}" -r "${__DIR}/../pcf/state" \
-	ubuntu@"${opsman_dns}":/home/ubuntu/workspace/pks-azure/pcf/
+ssh -i "${private_key}" ubuntu@"${opsman_dns}"
 
-scp -i "${private_key}" -r "${__DIR}/../pcf/vars" \
-	ubuntu@"${opsman_dns}":/home/ubuntu/workspace/pks-azure/pcf/
+# mkdir -p workspace
+# cd workspace
+# git clone git@github.com:malston/pks-azure.git
 
-scp -i "${private_key}" ".envrc" \
-	ubuntu@"${opsman_dns}":/home/ubuntu/workspace/pks-azure/.envrc
+# cat >> ~/.bashrc <<EOF
+
+# pushd ~/workspace/pks-azure
+# source .envrc
+# eval "\$(eval ssh-agent -s)"
+# ssh-add ~/.ssh/id_rsa
+# EOF
+
+# sudo cat >> ~/.profile <<EOF
+# alias ll='ls -al'
+
+# source ~/.bashrc
+# EOF
