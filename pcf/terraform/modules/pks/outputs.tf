@@ -3,7 +3,7 @@ output "pks-master-app-sec-group" {
 }
 
 output "pks-api-app-sec-group" {
-  value = "${azurerm_application_security_group.pks-api.id}"
+  value = "${azurerm_application_security_group.pks-api.name}"
 }
 
 output "dns_name" {

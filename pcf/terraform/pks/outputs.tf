@@ -114,6 +114,10 @@ output "pks-master-app-sec-group" {
   value = "${module.pks.pks-master-app-sec-group}"
 }
 
+output "pks-api-app-sec-group" {
+  value = "${module.pks.pks-api-app-sec-group}"
+}
+
 output "pks_api_dns" {
   value = "${module.pks.dns_name}"
 }
