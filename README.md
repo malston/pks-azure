@@ -82,6 +82,12 @@ source .envrc
 ./scripts/deploy-pks.sh
 ```
 
+### PKS Login
+
+```sh
+source ./scripts/login-pks.sh
+```
+
 ### Access BOSH
 
 ```sh
