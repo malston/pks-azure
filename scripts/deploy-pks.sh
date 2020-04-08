@@ -30,6 +30,8 @@ pks_network_name="$(terraform output -state="${STATE_FILE}" network_name)"
 export pks_network_name
 pks_pcf_resource_group_name="$(terraform output -state="${STATE_FILE}" pcf_resource_group_name)"
 export pks_pcf_resource_group_name
+pks_bosh_deployed_vms_security_group_name="$(terraform output -state="${STATE_FILE}" bosh_deployed_vms_security_group_name)"
+export pks_bosh_deployed_vms_security_group_name
 if [[ -z "$AZURE_REGION" ]]; then
 	echo "Enter azure location (region):"
 	read -r AZURE_REGION

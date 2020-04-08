@@ -14,7 +14,7 @@ product-properties:
   .properties.cloud_provider.azure.azure_worker_managed_identity:
     value: pks-worker
   .properties.cloud_provider.azure.default_security_group:
-    value: pks-master-app-sec-group
+    value: ((bosh_deployed_vms_security_group_name))
   .properties.cloud_provider.azure.location:
     value: ((location))
   .properties.cloud_provider.azure.primary_availability_set:
