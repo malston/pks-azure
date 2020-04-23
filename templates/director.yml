@@ -69,7 +69,7 @@ properties-configuration:
     trusted_certificates: ''
     generate_vm_passwords: true
 vmextensions-configuration:
-- name: pks-api-security-groups
+- name: pks-api-lb-security-groups
   cloud_properties:
     security_group: ((pcf_pks_api_sg))
     application_security_groups: ["((pks_api_app_sec_group))"]
